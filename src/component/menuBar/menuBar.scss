@@ -1,7 +1,10 @@
+@import '../../variables';
+
 .menu-bar {
   height: 24px;
-  background: white;
-  box-shadow: 0 2px 10px rgba(black, .2);
+  background: $black;
+  box-shadow: 0 2px 10px rgba(black, 0.2);
+  color: white;
   padding: 0 6px;
 
   .menu-option {
@@ -18,7 +21,7 @@
 
     &.system {
       i {
-        font-size: 20px;
+        font-size: 18px;
         line-height: 24px;
       }
     }

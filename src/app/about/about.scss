@@ -1,0 +1,44 @@
+@import '../../variables';
+
+.about-app {
+  padding: 24px;
+  display: flex;
+  .about-picture {
+    display: flex;
+    align-items: center;
+    img {
+      width: 100px;
+      border-radius: 100px;
+      border: 4px solid rgba(white, 0.1);
+    }
+  }
+  .about-details {
+    padding-left: 36px;
+
+    .name {
+      font-size: 18px;
+      letter-spacing: 0.5px;
+    }
+
+    .version {
+      opacity: 0.4;
+    }
+
+    .about-qualifications {
+      margin-top: 24px;
+    }
+
+    .detail {
+      display: flex;
+      margin-bottom: 6px;
+
+      b {
+        min-width: 70px;
+      }
+
+      span {
+        padding-left: 4px;
+      }
+    }
+  }
+}

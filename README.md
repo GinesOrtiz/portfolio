@@ -1,6 +1,6 @@
 # React Desktop App (WIP)
 
-This is a fun project which idea is to mimic a desktop window interface and the goal is to be able to create and run custom apps for it (like electron).  
+This is a fun project which idea is to mimic a desktop window interface and the goal is to be able to create and run custom list for it (like electron).  
 
 <p align="center">
   <img src="https://i.imgur.com/Xgp5CXG.gif" />

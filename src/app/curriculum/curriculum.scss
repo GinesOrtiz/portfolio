@@ -1,0 +1,59 @@
+.cv-app {
+  margin: 0 auto;
+  max-width: 1000px;
+  padding: 24px;
+  text-align: justify;
+  .cv-top {
+    display: flex;
+    margin-bottom: 24px;
+  }
+  .title {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  .subtitle {
+    opacity: 0.7;
+  }
+  .cv-description {
+    margin-bottom: 42px;
+  }
+  .right {
+    text-align: right;
+  }
+
+  .cv-jobs {
+    .title {
+      box-shadow: 0 2px 0 rgba(white, 0.2);
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+    .job {
+      margin-bottom: 42px;
+      box-shadow: 0 1px rgba(white, 0.1);
+      padding-bottom: 32px;
+      &:last-child {
+        box-shadow: none;
+      }
+      .job-name {
+        font-weight: bold;
+      }
+      .job-meta {
+        margin-bottom: 16px;
+      }
+      .job-description {
+        margin-bottom: 8px;
+      }
+    }
+  }
+
+  .cv-other {
+    .title {
+      margin-bottom: 16px;
+      box-shadow: 0 2px 0 rgba(white, 0.2);
+      padding-bottom: 8px;
+    }
+    .other {
+      margin-bottom: 8px;
+    }
+  }
+}

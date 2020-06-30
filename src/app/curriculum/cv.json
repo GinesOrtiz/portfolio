@@ -1,0 +1,99 @@
+{
+  "name": "Ginés Ortiz Saez",
+  "title": "Senior Full Stack Javascript developer",
+  "tel": "+34 662 04 90 14",
+  "links": [
+    "gines.o.saez@gmail.com",
+    "github/ginesortiz",
+    "linkedin/in/ginesortiz"
+  ],
+  "description": "Web developer since Chrome wasn’t a thing and Firebug was the only debugging tool. Moved back and forward between Frontend and Backend. In my spare time I make shitty robots using Arduino.",
+  "jobs": [
+    {
+      "company": "GoldenSpear",
+      "title": "Frontend lead & PO",
+      "time": "07/2019 - Current",
+      "tools": "React, NodeJS, Docker, NEO4J, mongoDB & Puppeteer",
+      "description": "SAAS for retailment for customer success. The information is gathered by analyzing security cameras with AI models, web interactions & point of sales data.",
+      "responsibility": "As a PO and Frontend lead, working with a team of 4 junior devs, organize, create, design & develop all the requirements for the app. Also I’ve developed an IG scrapper to gather profiles, followers relations and likes & comments in order to understand how users interact with brands."
+    },
+    {
+      "company": "Opticks Security",
+      "title": "R&D, BI & JS Dev",
+      "time": "07/2018 - 07/2019",
+      "tools": "React & Vanilla, PHP, mysql, Puppeteer & Tableau",
+      "description": "Web security framework that allowed telcos/carriers to track and block malware and bots from doing fraud subscriptions.",
+      "responsibility": "I’ve developed the JS framework that gathers all kinds of information from the browser (not a finger-print) in order to detect any suspicious activity. By grouping this information, I’ve defined patterns that identified different types of fraud by using BI tools and creating custom ones."
+    },
+    {
+      "company": "Billy Mobile",
+      "title": "Frontend",
+      "time": "04/2016 - 07/2018",
+      "tools": "AngularJS, PHP & mysql",
+      "description": "Mobile ad network on both publisher and advertiser sides.",
+      "responsibility": "We develop the two SAAS apps and tools to help advertisers promote and increase their CR. We had to create dynamic analytic reports and provide an easy way to track and optimize traffic flows."
+    },
+    {
+      "company": "Altran",
+      "title": "Fullstack JS",
+      "time": "01/2016 - 04/2016",
+      "tools": "AngularJS & Strongloop",
+      "description": "Affiliate AXA Seguros partner developing a middleware API for integrating all different backends worldwide.",
+      "responsibility": "I was in charge of Spain API integration. I had to create schemas to match the existing API & implement modifications to match the output."
+    },
+    {
+      "company": "Zemsania Tech Services & Solutions",
+      "title": "Fullstack JS",
+      "time": "11/2015 - 01/2016",
+      "tools": "AngularJS, nodeJS & mongoDB",
+      "description": "Internal tool for managing HR processes.",
+      "responsibility": "I’ve had to develop the frontend and part of the backend. I was in charge of the UI/UX."
+    },
+    {
+      "company": "Bushido Devs",
+      "title": "Frontend & Cross Mobile",
+      "time": "07/2015 - 11/2015",
+      "tools": "AngularJS & Ionic",
+      "description": "Mobile game startup for Trivia games. It had an ecosystem of multiple games of different niches and had cross gamification between them.",
+      "responsibility": "I had to create the base for each game, create different categories based on it and design & implement the landing page."
+    },
+    {
+      "company": "AtlasLab SL",
+      "title": "Frontend & Cross Mobile",
+      "time": "06/2014 - 07/2015",
+      "tools": "AngularJS & Ionic",
+      "description": "Tourism Barcelona guide app for travelers. It was divided in 3 different sections where tourists had a guide of the most interesting places with personalized routes, a chat and a voice assistant. ",
+      "responsibility": "We had to make the app and integrate the different REST APIs (GMaps, Nuance) and cordova APIs. The app was cross platform. I also help develop the intranet used to fill in the data for the app."
+    }
+  ],
+  "qualities": [
+    {
+      "name": "Frontend",
+      "value": "React, AngularJS, VanillaJS, ES6, SASS, Webpack & Gulp"
+    },
+    {
+      "name": "Backend",
+      "value": "NodeJS, PHP, mongoDB, mysql, NEO4J & Hive"
+    },
+    {
+      "name": "Mobile",
+      "value": "Cordova, Ionic & React Native"
+    },
+    {
+      "name": "Testing",
+      "value": "Jasmine, Mocha, Istanbul, Jest, Cypress & Puppeteer"
+    },
+    {
+      "name": "Systems",
+      "value": "Debian, Centos & Docker"
+    },
+    {
+      "name": "Other",
+      "value": "Sketch & Photoshop"
+    }
+  ],
+  "other": {
+    "education": "Bachelor's degree",
+    "languages": "Spanish [native], English [high] & Catalan [high]"
+  }
+}

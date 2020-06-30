@@ -1,0 +1,27 @@
+@import '../../variables';
+
+.contact-app {
+  padding: 24px;
+  .row {
+    flex-wrap: wrap;
+  }
+  .link {
+    margin-bottom: 24px;
+    min-width: 50%;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  b {
+    display: block;
+    margin-bottom: 4px;
+  }
+  a {
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,59 +1,63 @@
-import React from 'react';
-import connect from 'react-redux/es/connect/connect';
+import React from 'react'
+import connect from 'react-redux/es/connect/connect'
 
-import Icon from '../common/Icon';
-import {openContextMenu} from '../../actions/contextMenu';
-import './menuBar.scss';
+import Icon from '../common/Icon'
+import { openContextMenu } from '../../actions/contextMenu'
+import './menuBar.scss'
 
-class MenuBar extends React.Component {
-    defaultActiveWindow = {
-        title: 'Finder'
-    };
+const MenuBar = (props) => {
+  const defaultActiveWindow = {
+    title: 'Finder',
+  }
 
-    systemContextMenu = [
-        {
-            type: 'button',
-            value: 'demo'
-        }
-    ];
+  const systemContextMenu = [
+    {
+      type: 'button',
+      value: 'Ginés Ortiz',
+      icon: 'person',
+    },
+  ]
 
-    onMenuClick = (from, ev) => {
-        const position = {
-            top: ev.target.offsetTop + ev.target.offsetHeight,
-            left: ev.target.offsetLeft
-        };
-
-        ev.preventDefault();
-        ev.stopPropagation();
-        switch (from) {
-            case 'system':
-                this.props.openContextMenu({position, content: this.systemContextMenu});
-        }
-    };
-
-    render() {
-        const activeWindow = this.props.activeWindow || this.defaultActiveWindow;
-        return (
-            <div className={'menu-bar'}
-                 onContextMenu={ev => ev.preventDefault()}>
-                <div
-                    onClick={(ev) => this.onMenuClick('system', ev)}
-                    className={'menu-option system'}><Icon type={'layers'}/></div>
-                <div className={'menu-option app'}><span>{activeWindow.title}</span></div>
-            </div>
-        );
+  const onMenuClick = (from, ev) => {
+    const position = {
+      top: ev.target.offsetTop + ev.target.offsetHeight,
+      left: ev.target.offsetLeft,
     }
+
+    ev.preventDefault()
+    ev.stopPropagation()
+    switch (from) {
+      case 'system':
+        props.openContextMenu({
+          position,
+          content: systemContextMenu,
+        })
+    }
+  }
+
+  const activeWindow = props.activeWindow || defaultActiveWindow
+
+  return (
+    <div className={'menu-bar'} onContextMenu={(ev) => ev.preventDefault()}>
+      <div
+        onClick={(ev) => onMenuClick('system', ev)}
+        className={'menu-option system'}
+      >
+        <Icon type={'layers'} />
+      </div>
+      <div className={'menu-option app'}>
+        <span>{activeWindow.title}</span>
+      </div>
+    </div>
+  )
 }
 
-const mapStateToProps = state => ({
-    activeWindow: [...state.windows].find(window => window.active)
-});
+const mapStateToProps = (state) => ({
+  activeWindow: [...state.windows].find((window) => window.active),
+})
 
-const mapDispatchToProps = dispatch => ({
-    openContextMenu: config => dispatch(openContextMenu(config))
-});
+const mapDispatchToProps = (dispatch) => ({
+  openContextMenu: (config) => dispatch(openContextMenu(config)),
+})
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(MenuBar)
+export default connect(mapStateToProps, mapDispatchToProps)(MenuBar)

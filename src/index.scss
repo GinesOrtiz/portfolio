@@ -1,8 +1,13 @@
-html, body, #root, #root > .App {
+html,
+body,
+#root,
+#root > .App {
   height: 100%;
   width: 100%;
   margin: 0;
   background: #0c0c0c;
+  color: white;
+  font-size: 12px;
 }
 
 * {
@@ -11,4 +16,12 @@ html, body, #root, #root > .App {
   user-select: none;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
+}
+
+.row {
+  display: flex;
+}
+.col {
+  justify-content: space-between;
+  flex: 1;
 }

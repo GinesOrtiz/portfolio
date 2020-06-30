@@ -1,14 +1,32 @@
-$black: #17191d;
-$shadow: rgba($black, .1);
+$black: #1a1a1c;
+$black-1: #1a1a1c;
+$black-2: #2d2d31;
+$grey: #eceff1;
+$shadow: rgba($black, 0.2);
 $accent-text: white;
 
-$accent: #4c7af5;
-$accent-1: #4245b7;
-$accent-2: #4350c2;
-$accent-3: #465bd0;
-$accent-4: #4766dc;
-$accent-5: $accent;
-$accent-6: #5c87f6;
-$accent-7: #6e95f8;
-$accent-8: #7fa2f8;
-$accent-9: #91aff9;
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }
+  @-ms-keyframes #{$animation-name} {
+    @content;
+  }
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  -ms-animation: #{$str};
+  -o-animation: #{$str};
+  animation: #{$str};
+}

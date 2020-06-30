@@ -1,85 +1,130 @@
-import React from 'react';
-import connect from 'react-redux/es/connect/connect';
+import React, { useEffect, useState } from 'react'
+import connect from 'react-redux/es/connect/connect'
+import propTypes from 'prop-types'
 
-import {activeWindow, createWindow, minimizeWindow} from '../../actions/windows';
-import Icon from '../common/Icon';
-import './dock.scss';
+import { openDock, closeDock } from '../../actions/dock'
+import Icon from '../common/Icon'
+import {
+  activeWindow,
+  createWindow,
+  minimizeWindow,
+} from '../../actions/windows'
+import apps from '../../app/list'
+import './dock.scss'
 
-class Dock extends React.Component {
-    createWindow = () => {
-        const random = (Math.random()).toString(21).substr(2);
-        const window = {
-            title: random,
-            id: random,
-        };
+const Dock = ({
+  windows,
+  dock,
+  createWindow,
+  activeWindow,
+  minimizeWindow,
+  onOpenDock,
+  onCloseDock,
+}) => {
+  const [dirtyMenuOpen, setDirtyMenuOpen] = useState(false)
+  const isMenuOpen = dock.open
 
-        this.props.createWindow(window);
-    };
-
-    launchAppDock = () => {
-
-    };
-
-    activeWindow = window => {
-        if (window.prev) {
-            this.props.minimizeWindow(window);
-        } else {
-            this.props.activeWindow(window);
-        }
-    };
-
-    render() {
-        return (
-            <div className={'dock'}>
-                <div className={'dock-display'}>
-                    <div className={'dock-actions'}>
-                        <button
-                            className={'dock-button'}
-                            onClick={this.launchAppDock()}>
-                            <Icon type={'apps'}/>
-                        </button>
-                    </div>
-                    <div className={'dock-separator'}/>
-                    <div className={'dock-apps'}>
-                        {this.props.windows
-                            .map(window => (
-                                <button
-                                    data-app={window.id}
-                                    key={window.id}
-                                    className={`dock-button ${window.active ? 'active' : ''}`}
-                                    onClick={() => this.activeWindow(window)}>
-                                    {window.customIcon
-                                        ? <div style={{backgroundImage: window.customIcon}}/>
-                                        : <div><Icon type={window.icon || 'extension'}/></div>
-                                    }
-                                </button>))}
-                    </div>
-                    <div className={'dock-separator'}/>
-                    <div className={'dock-actions'}>
-                        <button
-                            className={'dock-button'}
-                            onClick={this.createWindow}>
-                            <Icon type={'add'}/>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        )
+  const onActiveWindow = (window) => {
+    if (window.prev) {
+      minimizeWindow(window)
+    } else {
+      activeWindow(window)
     }
+  }
+
+  const onOpenApp = (window) => {
+    const originalWindow = windows.find((win) => win.id === window.id)
+
+    createWindow(window)
+    activeWindow(window)
+
+    if (originalWindow && originalWindow.prev) {
+      minimizeWindow(window)
+    }
+
+    onCloseDock()
+  }
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      setDirtyMenuOpen(true)
+    }
+  }, [isMenuOpen])
+
+  return (
+    <>
+      {dirtyMenuOpen && (
+        <div className={`dock-menu ${isMenuOpen ? 'open' : 'close'}`}>
+          {Object.values(apps).map((app, appIndex) => (
+            <div
+              key={app.id}
+              className={'menu-app'}
+              onClick={() => onOpenApp(app)}
+            >
+              <Icon type={app.icon || 'extension'} />
+              <span>{app.title}</span>
+            </div>
+          ))}
+        </div>
+      )}
+      <div className={'dock'}>
+        <div className={'dock-display'}>
+          <div className={'dock-actions'}>
+            <button
+              className={'dock-button'}
+              onClick={() => (isMenuOpen ? onCloseDock() : onOpenDock())}
+            >
+              <Icon type={'apps'} />
+            </button>
+          </div>
+          <div className={'dock-separator'} />
+          <div className={'dock-apps'}>
+            {windows.map((window) => (
+              <button
+                data-app={window.id}
+                key={window.id}
+                className={`dock-button ${window.active ? 'active' : ''}`}
+                onClick={() => onActiveWindow(window)}
+              >
+                {window.customIcon ? (
+                  <div style={{ backgroundImage: window.customIcon }} />
+                ) : (
+                  <div>
+                    <Icon type={window.icon || 'extension'} />
+                  </div>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  )
 }
 
-const mapStateToProps = state => ({
-    windows: [...state.windows].sort((a, b) => a.createdAt > b.createdAt ? 1 : -1)
-});
+Dock.propTypes = {
+  windows: propTypes.array.isRequired,
+  dock: propTypes.object.isRequired,
+  createWindow: propTypes.func.isRequired,
+  activeWindow: propTypes.func.isRequired,
+  minimizeWindow: propTypes.func.isRequired,
+  onOpenDock: propTypes.func.isRequired,
+  onCloseDock: propTypes.func.isRequired,
+}
 
-const mapDispatchToProps = dispatch => ({
-    createWindow: window => dispatch(createWindow(window)),
-    activeWindow: window => dispatch(activeWindow(window)),
-    minimizeWindow: window => dispatch(minimizeWindow(window)),
-});
+const mapStateToProps = (state) => ({
+  dock: state.dock,
+  windows: [...state.windows].sort((a, b) =>
+    a.createdAt > b.createdAt ? 1 : -1
+  ),
+})
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Dock)
+const mapDispatchToProps = (dispatch) => ({
+  onOpenDock: () => dispatch(openDock()),
+  onCloseDock: () => dispatch(closeDock()),
+  createWindow: (window) => dispatch(createWindow(window)),
+  activeWindow: (window) => dispatch(activeWindow(window)),
+  minimizeWindow: (window) => dispatch(minimizeWindow(window)),
+})
 
+export default connect(mapStateToProps, mapDispatchToProps)(Dock)
