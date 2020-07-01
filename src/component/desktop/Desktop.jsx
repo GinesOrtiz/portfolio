@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+import propTypes from 'prop-types'
 
 import Window from '../window/Window'
 import Dock from '../dock/Dock'
@@ -17,26 +18,37 @@ import { closeDock } from '../../actions/dock'
 import apps from '../../app/list'
 
 import './desktop.scss'
-import Icon from '../common/Icon'
 
-const Desktop = (props) => {
-  const [activeWindow, setActiveWindow] = useState({})
+const Desktop = ({
+  updateWindow,
+  activeWindow,
+  createWindow,
+  minimizeWindow,
+  openContextMenu,
+  closeContextMenu,
+  closeDock,
+  windows,
+}) => {
+  const [isActiveWindow, setIsActiveWindow] = useState({})
 
-  const desktopContextMenu = [
-    {
-      type: 'button',
-      value: 'text',
-      icon: 'layers',
-    },
-    {
-      type: 'button',
-      value: 'demo2',
-      icon: 'lens',
-    },
-  ]
+  const onOpenApp = (window) => {
+    const originalWindow = windows.find((win) => win.id === window.id)
+
+    createWindow(window)
+    activeWindow(window)
+
+    if (originalWindow && originalWindow.prev) {
+      minimizeWindow(window)
+    }
+  }
+
+  const desktopContextMenu = Object.values(apps).map((app) => ({
+    value: app.title,
+    icon: app.icon,
+    action: () => onOpenApp(app),
+  }))
 
   const onMouseDown = (ev, window, src) => {
-    const windows = [...props.windows]
     const activePos = windows.findIndex((win) => win.id === window.id)
     const newActiveWindow = {
       ...windows[activePos],
@@ -52,52 +64,48 @@ const Desktop = (props) => {
       },
     }
 
-    props.activeWindow(window)
-    props.updateWindow(window, { ...newActiveWindow, active: true })
-    setActiveWindow(newActiveWindow)
+    activeWindow(window)
+    updateWindow(window, { ...newActiveWindow, active: true })
+    setIsActiveWindow(newActiveWindow)
   }
 
   const onMouseMove = (ev) => {
     const windowConfig = windowInteraction(
-      activeWindow,
+      isActiveWindow,
       { transition: null },
       ev
     )
 
     if (windowConfig) {
-      props.updateWindow(activeWindow, windowConfig)
+      updateWindow(isActiveWindow, windowConfig)
     }
   }
 
   const onMouseUp = () => {
-    setActiveWindow({})
+    setIsActiveWindow({})
   }
 
   const onContextMenu = (ev) => {
-    const position = {
-      top: ev.clientY,
-      left: ev.clientX,
-    }
-
     ev.preventDefault()
-    props.openContextMenu({ position, content: desktopContextMenu })
+    openContextMenu({
+      position: {
+        top: ev.clientY,
+        left: ev.clientX,
+      },
+      content: desktopContextMenu,
+    })
   }
 
-  const onOpenApp = (window) => {
-    const originalWindow = props.windows.find((win) => win.id === window.id)
-
-    props.createWindow(window)
-    props.activeWindow(window)
-
-    if (originalWindow && originalWindow.prev) {
-      props.minimizeWindow(window)
-    }
-  }
+  useEffect(() => {
+    setTimeout(() => {
+      createWindow(apps.about)
+    }, 1000)
+  }, [createWindow])
 
   return (
     <div
       className={'desktop'}
-      onClick={props.closeContextMenu}
+      onClick={closeContextMenu}
       onMouseMove={onMouseMove}
       onMouseUp={onMouseUp}
     >
@@ -106,23 +114,11 @@ const Desktop = (props) => {
         <div
           className={'desktop-back'}
           onClick={() => {
-            props.activeWindow({})
-            props.closeDock({})
+            activeWindow({})
+            closeDock({})
           }}
         />
-        <div className={'desktop-apps'}>
-          {Object.values(apps).map((app, appIndex) => (
-            <div
-              key={app.id}
-              className={'desktop-app'}
-              onClick={() => onOpenApp(app)}
-            >
-              <Icon type={app.icon || 'extension'} />
-              <span>{app.title}</span>
-            </div>
-          ))}
-        </div>
-        {props.windows.map((window, pos) => (
+        {windows.map((window, pos) => (
           <Window windowPos={pos} key={window.id} onMouseDown={onMouseDown} />
         ))}
       </div>
@@ -130,6 +126,17 @@ const Desktop = (props) => {
       <ContextMenu />
     </div>
   )
+}
+
+Desktop.propTypes = {
+  windows: propTypes.array.isRequired,
+  updateWindow: propTypes.func.isRequired,
+  activeWindow: propTypes.func.isRequired,
+  createWindow: propTypes.func.isRequired,
+  minimizeWindow: propTypes.func.isRequired,
+  openContextMenu: propTypes.func.isRequired,
+  closeContextMenu: propTypes.func.isRequired,
+  closeDock: propTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({

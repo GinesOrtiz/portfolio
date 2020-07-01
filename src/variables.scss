@@ -1,8 +1,9 @@
+$background: #0b0b0c;
 $black: #1a1a1c;
 $black-1: #1a1a1c;
 $black-2: #2d2d31;
 $grey: #eceff1;
-$shadow: rgba($black, 0.2);
+$shadow: rgba($background, 0.3);
 $accent-text: white;
 
 @mixin keyframes($animation-name) {
@@ -26,7 +27,6 @@ $accent-text: white;
 @mixin animation($str) {
   -webkit-animation: #{$str};
   -moz-animation: #{$str};
-  -ms-animation: #{$str};
   -o-animation: #{$str};
   animation: #{$str};
 }

@@ -36,7 +36,7 @@ const ContactApp = () => {
         {links.map(({ link, title, text }) => (
           <div key={title} className={'link col'}>
             <b>{title}</b>{' '}
-            <a href={link} target={'_blank'}>
+            <a href={link} target={'_blank'} rel="noopener noreferrer">
               {text || link}
             </a>
           </div>

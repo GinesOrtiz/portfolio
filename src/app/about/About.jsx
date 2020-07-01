@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import cv from '../curriculum/cv.json'
 import profilePic from './profile.png'
 
@@ -7,7 +7,7 @@ import './about.scss'
 const AboutApp = () => {
   const date = new Date()
   const year = date.getFullYear()
-  const month = date.getMonth()
+  const month = `0${date.getMonth()}`.substr(-2)
 
   return (
     <div className={'about-app'}>

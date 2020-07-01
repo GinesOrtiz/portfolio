@@ -4,7 +4,9 @@
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background: #0b0b0c;
+  background-color: $background;
+  background-image: url(background.png);
+  background-size: cover;
   display: flex;
   flex-direction: column;
   .desktop-layer {
@@ -20,37 +22,6 @@
     right: 0;
     bottom: 0;
     z-index: 0;
-  }
-
-  .desktop-apps {
-    display: flex;
-    flex-direction: column;
-    padding: 12px;
-    position: relative;
-    z-index: 1;
-
-    .desktop-app {
-      width: 200px;
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-      padding: 4px;
-      margin-bottom: 8px;
-      color: rgba(white, 0.8);
-      transition: all 0.1s;
-      cursor: pointer;
-
-      &:hover {
-        color: white;
-      }
-
-      i {
-        font-size: 26px;
-      }
-
-      span {
-        padding-left: 8px;
-      }
-    }
+    backdrop-filter: blur(20px);
   }
 }

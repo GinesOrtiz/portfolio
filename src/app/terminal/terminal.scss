@@ -1,0 +1,35 @@
+@import '../../variables';
+
+.terminal-app {
+  height: 100%;
+  padding: 4px;
+
+  .terminal-history {
+    .history-cmd pre {
+      margin: 0;
+      display: inline-block;
+      white-space: pre-wrap;
+    }
+  }
+
+  .terminal-command {
+    height: 16px;
+    display: flex;
+
+    input {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: white;
+      font-size: 12px;
+      padding: 0 4px 0 0;
+      height: 16px;
+    }
+  }
+
+  .dollar {
+    line-height: 16px;
+    width: 14px;
+    display: inline-block;
+  }
+}

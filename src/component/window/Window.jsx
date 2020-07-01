@@ -41,6 +41,8 @@ const Window = ({
       case 'minimize':
         minimizeWindow(window)
         break
+      default:
+        break
     }
   }
 

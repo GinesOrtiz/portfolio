@@ -1,11 +1,20 @@
 import { Windows } from '../actions/windows'
 import { transition, windowSize } from '../component/desktop/utils/windows'
-import apps from '../app/list'
 
 const menuBarHeight = 24
 const dockHeight = 40
 
-const defaultSate = [apps.about, apps.contact]
+const defaultSate = []
+let start
+
+const step = (timestamp) => {
+  if (start === undefined) start = timestamp
+  const elapsed = timestamp - start
+
+  if (elapsed < 300) {
+    window.requestAnimationFrame(step)
+  }
+}
 
 const windows = (state = defaultSate, action) => {
   const newState = [...state]
@@ -16,8 +25,15 @@ const windows = (state = defaultSate, action) => {
   switch (action.type) {
     case Windows.CREATE_WINDOW:
       if (!newState.find((window) => window.id === action.window.id)) {
+        const windowWidth = window.innerWidth / 2
+        const windowHeight = window.innerHeight / 2 - 20
+
+        window.requestAnimationFrame(step)
+
         newState.push({
           ...windowSize,
+          x: windowWidth - action.window.width / 2,
+          y: windowHeight - action.window.height / 2,
           ...action.window,
           createdAt: +new Date(),
         })
@@ -38,6 +54,8 @@ const windows = (state = defaultSate, action) => {
 
       return state
     case Windows.FULLSCREEN_WINDOW:
+      window.requestAnimationFrame(step)
+
       if (newState[currentWindow].prev) {
         newState[currentWindow] = {
           ...state[currentWindow].prev,
@@ -76,7 +94,9 @@ const windows = (state = defaultSate, action) => {
         .querySelector(`.dock-button[data-app="${newState[currentWindow].id}"]`)
         .getBoundingClientRect()
 
-      newState[currentWindow].transition = 'all .3s'
+      window.requestAnimationFrame(step)
+
+      newState[currentWindow].transition = 'all .3s ease-in-out'
       newState[currentWindow].styles = {
         transform: 'scale(1)',
         transformOrigin: 'top left',
@@ -100,8 +120,6 @@ const windows = (state = defaultSate, action) => {
       }
 
       return newState
-    case Windows.ACTIVE_DESKTOP:
-      return newState.map((window) => ({ ...window, active: false }))
     default:
       return state
   }

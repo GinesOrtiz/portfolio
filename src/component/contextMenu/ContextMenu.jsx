@@ -15,7 +15,7 @@ const ContextMenu = (props) => {
       <div style={props.contextMenu.position} className={'menu'}>
         {props.contextMenu.content.map((option) => (
           <div
-            onClick={(ev) => option.action && option.action(option)}
+            onClick={(ev) => option.action && option.action(ev, option)}
             className={'menu-option'}
             key={option.value}
           >

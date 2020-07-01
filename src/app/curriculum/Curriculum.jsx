@@ -3,12 +3,23 @@ import { connect } from 'react-redux'
 import propTypes from 'prop-types'
 
 import { openContextMenu } from '../../actions/contextMenu'
-import { createWindow } from '../../actions/windows'
-import './curriculum.scss'
+import {
+  createWindow,
+  activeWindow,
+  minimizeWindow,
+} from '../../actions/windows'
+
 import cv from './cv.json'
 import apps from '../../app/list'
+import './curriculum.scss'
 
-const CurriculumApp = ({ openContextMenu, createWindow }) => {
+const CurriculumApp = ({
+  openContextMenu,
+  createWindow,
+  activeWindow,
+  minimizeWindow,
+  windows,
+}) => {
   const onContextMenu = (ev) => {
     const position = {
       top: ev.clientY,
@@ -23,7 +34,17 @@ const CurriculumApp = ({ openContextMenu, createWindow }) => {
         {
           value: 'Contact me',
           icon: 'alternate_email',
-          action: () => createWindow(apps.contact),
+          action: () => {
+            const window = apps.contact
+            const originalWindow = windows.find((win) => win.id === window.id)
+
+            createWindow(window)
+            activeWindow(window)
+
+            if (originalWindow && originalWindow.prev) {
+              minimizeWindow(window)
+            }
+          },
         },
         {
           value: 'Download PDF',
@@ -81,13 +102,22 @@ const CurriculumApp = ({ openContextMenu, createWindow }) => {
 }
 
 CurriculumApp.propTypes = {
+  windows: propTypes.array.isRequired,
   openContextMenu: propTypes.func.isRequired,
   createWindow: propTypes.func.isRequired,
+  minimizeWindow: propTypes.func.isRequired,
+  activeWindow: propTypes.func.isRequired,
 }
+
+const mapStateToProps = (state) => ({
+  windows: state.windows,
+})
 
 const mapDispatchToProps = (dispatch) => ({
   createWindow: (window) => dispatch(createWindow(window)),
+  activeWindow: (window) => dispatch(activeWindow(window)),
+  minimizeWindow: (window) => dispatch(minimizeWindow(window)),
   openContextMenu: (config) => dispatch(openContextMenu(config)),
 })
 
-export default connect(null, mapDispatchToProps)(CurriculumApp)
+export default connect(mapStateToProps, mapDispatchToProps)(CurriculumApp)

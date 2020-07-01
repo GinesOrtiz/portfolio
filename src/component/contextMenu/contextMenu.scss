@@ -4,13 +4,15 @@
   .menu {
     position: fixed;
     z-index: 10;
-    background: $black;
+    background: rgba($black, 0.9);
+    backdrop-filter: blur(10px);
     color: white;
     padding: 6px 0;
     min-width: 120px;
     box-shadow: 0 0 12px rgba($black, .5), 0 0 0 1px $black-2;
     .menu-option {
-      padding: 2px 12px;
+      padding: 4px 12px;
+      margin-bottom: 2px;
       font-size: 12px;
 
       &:hover {
