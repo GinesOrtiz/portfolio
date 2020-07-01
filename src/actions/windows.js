@@ -5,7 +5,7 @@ export const Windows = {
   DELETE_WINDOW: 'DELETE_WINDOW',
   FULLSCREEN_WINDOW: 'FULLSCREEN_WINDOW',
   MINIMIZE_WINDOW: 'MINIMIZE_WINDOW',
-  ACTIVE_DESKTOP: 'ACTIVE_DESKTOP',
+  OPEN_WINDOW: 'OPEN_WINDOW',
 }
 
 export const createWindow = (window) => ({
@@ -36,5 +36,10 @@ export const deleteWindow = (window) => ({
 
 export const minimizeWindow = (window) => ({
   type: Windows.MINIMIZE_WINDOW,
+  window,
+})
+
+export const openWindow = (window) => ({
+  type: Windows.OPEN_WINDOW,
   window,
 })

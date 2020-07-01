@@ -4,18 +4,14 @@ import propTypes from 'prop-types'
 
 import { openDock, closeDock } from '../../actions/dock'
 import Icon from '../common/Icon'
-import {
-  activeWindow,
-  createWindow,
-  minimizeWindow,
-} from '../../actions/windows'
+import { activeWindow, openWindow, minimizeWindow } from '../../actions/windows'
 import apps from '../../app/list'
 import './dock.scss'
 
 const Dock = ({
   windows,
   dock,
-  createWindow,
+  openWindow,
   activeWindow,
   minimizeWindow,
   onOpenDock,
@@ -33,16 +29,13 @@ const Dock = ({
   }
 
   const onOpenApp = (window) => {
-    const originalWindow = windows.find((win) => win.id === window.id)
-
-    createWindow(window)
-    activeWindow(window)
-
-    if (originalWindow && originalWindow.prev) {
-      minimizeWindow(window)
-    }
+    openWindow(window)
 
     onCloseDock()
+  }
+
+  const onDockContextMenu = (ev) => {
+    ev.preventDefault()
   }
 
   useEffect(() => {
@@ -55,7 +48,7 @@ const Dock = ({
     <>
       {dirtyMenuOpen && (
         <div className={`dock-menu ${isMenuOpen ? 'open' : 'close'}`}>
-          {Object.values(apps).map((app, appIndex) => (
+          {Object.values(apps).map((app) => (
             <div
               key={app.id}
               className={'menu-app'}
@@ -67,7 +60,7 @@ const Dock = ({
           ))}
         </div>
       )}
-      <div className={'dock'}>
+      <div className={'dock'} onContextMenu={onDockContextMenu}>
         <div className={'dock-display'}>
           <div className={'dock-actions'}>
             <button
@@ -105,7 +98,7 @@ const Dock = ({
 Dock.propTypes = {
   windows: propTypes.array.isRequired,
   dock: propTypes.object.isRequired,
-  createWindow: propTypes.func.isRequired,
+  openWindow: propTypes.func.isRequired,
   activeWindow: propTypes.func.isRequired,
   minimizeWindow: propTypes.func.isRequired,
   onOpenDock: propTypes.func.isRequired,
@@ -122,7 +115,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onOpenDock: () => dispatch(openDock()),
   onCloseDock: () => dispatch(closeDock()),
-  createWindow: (window) => dispatch(createWindow(window)),
+  openWindow: (window) => dispatch(openWindow(window)),
   activeWindow: (window) => dispatch(activeWindow(window)),
   minimizeWindow: (window) => dispatch(minimizeWindow(window)),
 })

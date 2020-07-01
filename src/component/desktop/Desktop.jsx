@@ -10,7 +10,7 @@ import {
   updateWindow,
   activeWindow,
   createWindow,
-  minimizeWindow,
+  openWindow,
 } from '../../actions/windows'
 import { closeContextMenu, openContextMenu } from '../../actions/contextMenu'
 import ContextMenu from '../contextMenu/ContextMenu'
@@ -23,7 +23,7 @@ const Desktop = ({
   updateWindow,
   activeWindow,
   createWindow,
-  minimizeWindow,
+  openWindow,
   openContextMenu,
   closeContextMenu,
   closeDock,
@@ -31,21 +31,10 @@ const Desktop = ({
 }) => {
   const [isActiveWindow, setIsActiveWindow] = useState({})
 
-  const onOpenApp = (window) => {
-    const originalWindow = windows.find((win) => win.id === window.id)
-
-    createWindow(window)
-    activeWindow(window)
-
-    if (originalWindow && originalWindow.prev) {
-      minimizeWindow(window)
-    }
-  }
-
   const desktopContextMenu = Object.values(apps).map((app) => ({
     value: app.title,
     icon: app.icon,
-    action: () => onOpenApp(app),
+    action: () => openWindow(app),
   }))
 
   const onMouseDown = (ev, window, src) => {
@@ -133,7 +122,7 @@ Desktop.propTypes = {
   updateWindow: propTypes.func.isRequired,
   activeWindow: propTypes.func.isRequired,
   createWindow: propTypes.func.isRequired,
-  minimizeWindow: propTypes.func.isRequired,
+  openWindow: propTypes.func.isRequired,
   openContextMenu: propTypes.func.isRequired,
   closeContextMenu: propTypes.func.isRequired,
   closeDock: propTypes.func.isRequired,
@@ -147,7 +136,7 @@ const mapDispatchToProps = (dispatch) => ({
   updateWindow: (window, data) => dispatch(updateWindow(window, data)),
   activeWindow: (window) => dispatch(activeWindow(window)),
   createWindow: (window) => dispatch(createWindow(window)),
-  minimizeWindow: (window) => dispatch(minimizeWindow(window)),
+  openWindow: (window) => dispatch(openWindow(window)),
   openContextMenu: (config) => dispatch(openContextMenu(config)),
   closeContextMenu: () => dispatch(closeContextMenu()),
   closeDock: () => dispatch(closeDock()),

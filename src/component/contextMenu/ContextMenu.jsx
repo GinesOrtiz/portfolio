@@ -5,15 +5,15 @@ import { closeContextMenu } from '../../actions/contextMenu'
 import Icon from '../common/Icon'
 import './contextMenu.scss'
 
-const ContextMenu = (props) => {
-  if (!props.contextMenu.active) {
+const ContextMenu = ({ contextMenu }) => {
+  if (!contextMenu.active) {
     return null
   }
 
   return (
     <div className={'context-menu'}>
-      <div style={props.contextMenu.position} className={'menu'}>
-        {props.contextMenu.content.map((option) => (
+      <div style={contextMenu.position} className={'menu'}>
+        {contextMenu.content.map((option) => (
           <div
             onClick={(ev) => option.action && option.action(ev, option)}
             className={'menu-option'}

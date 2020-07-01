@@ -16,16 +16,22 @@ const TerminalApp = () => {
 
   const onKeyDown = ({ key }) => {
     if (key === 'Enter') {
-      if (command === 'clear') {
-        setHistory([])
-        setCommand('')
-      } else {
-        addHistory(command)
-        addHistory(
-          commands[command] ||
-            commands.fallback.replace('{{command}}', command),
-          false
-        )
+      switch (command) {
+        case 'open':
+          setHistory([])
+          setCommand('')
+          break
+        case 'clear':
+          setHistory([])
+          setCommand('')
+          break
+        default:
+          addHistory(command)
+          addHistory(
+            commands[command] ||
+              commands.fallback.replace('{{command}}', command),
+            false
+          )
       }
     }
   }

@@ -16,7 +16,7 @@ export default {
     active: true,
   },
   curriculum: {
-    id: 'test',
+    id: 'curriculum',
     width: 800,
     height: 700,
     title: 'Curriculum',
@@ -42,7 +42,7 @@ export default {
     createdAt: 3,
     icon: 'airplay',
     resize: true,
-    app: TerminalApp
+    app: TerminalApp,
   },
   demo: {
     id: 'demo',

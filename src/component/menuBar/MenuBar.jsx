@@ -1,45 +1,25 @@
 import React from 'react'
 import connect from 'react-redux/es/connect/connect'
+import propTypes from 'prop-types'
 
 import Icon from '../common/Icon'
 import { openContextMenu } from '../../actions/contextMenu'
+import { openWindow } from '../../actions/windows'
 
 import apps from '../../app/list'
 import './menuBar.scss'
-import {
-  activeWindow,
-  createWindow,
-  minimizeWindow,
-} from '../../actions/windows'
 
 const defaultActiveWindow = {
   title: 'Finder',
 }
 
-const MenuBar = ({
-  currentWindow,
-  windows,
-  openContextMenu,
-  createWindow,
-  activeWindow,
-  minimizeWindow,
-}) => {
+const MenuBar = ({ currentWindow, openContextMenu, openWindow }) => {
   const systemContextMenu = [
     {
       type: 'button',
       value: 'Ginés Ortiz',
       icon: 'person',
-      action: () => {
-        const window = apps.about
-        const originalWindow = windows.find((win) => win.id === window.id)
-
-        createWindow(window)
-        activeWindow(window)
-
-        if (originalWindow && originalWindow.prev) {
-          minimizeWindow(window)
-        }
-      },
+      action: () => openWindow(apps.about),
     },
   ]
 
@@ -75,17 +55,24 @@ const MenuBar = ({
   )
 }
 
+MenuBar.propTypes = {
+  currentWindow: propTypes.object,
+  openContextMenu: propTypes.func.isRequired,
+  openWindow: propTypes.func.isRequired,
+}
+
+MenuBar.defaultProps = {
+  currentWindow: defaultActiveWindow,
+}
+
 const mapStateToProps = (state) => ({
   currentWindow:
     [...state.windows].find((window) => window.active) || defaultActiveWindow,
-  windows: state.windows,
 })
 
 const mapDispatchToProps = (dispatch) => ({
   openContextMenu: (config) => dispatch(openContextMenu(config)),
-  createWindow: (config) => dispatch(createWindow(config)),
-  activeWindow: (config) => dispatch(activeWindow(config)),
-  minimizeWindow: (config) => dispatch(minimizeWindow(config)),
+  openWindow: (window) => dispatch(openWindow(window)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuBar)
