@@ -1,5 +1,0 @@
-{
-  "fallback": "Command `{{command}}` not found. Try `help`",
-  "help": "G-OS bash, version 0.0.1-release\nThese shell commands are defined internally. Type `help' to see this list.\n\nclear\t\tClear terminal commands",
-  "": ""
-}

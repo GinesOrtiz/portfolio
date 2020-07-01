@@ -44,12 +44,4 @@ export default {
     resize: true,
     app: TerminalApp,
   },
-  demo: {
-    id: 'demo',
-    width: 400,
-    height: 250,
-    title: 'window 2',
-    createdAt: 3,
-    resize: true,
-  },
 }

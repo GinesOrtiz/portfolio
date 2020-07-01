@@ -12,7 +12,7 @@
 }
 
 .window {
-  @media (max-width: 600px) {
+  @media (max-width: $mobile) {
     top: 24px !important;
     left: 0 !important;
     right: 0 !important;

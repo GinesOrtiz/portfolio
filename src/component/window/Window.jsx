@@ -87,7 +87,11 @@ const Window = ({
         <WindowResizeZone window={window} onMouseDown={onMouseDown} />
       )}
       <div className={'content'}>
-        {window.app ? <App /> : <pre>{JSON.stringify(window, null, 2)}</pre>}
+        {window.app ? (
+          <App app={window} />
+        ) : (
+          <pre>{JSON.stringify(window, null, 2)}</pre>
+        )}
       </div>
     </div>
   )

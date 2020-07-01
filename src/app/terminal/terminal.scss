@@ -4,6 +4,10 @@
   height: 100%;
   padding: 4px;
 
+  &.command-hacker_mode {
+    color: #26ea2a;
+  }
+
   .terminal-history {
     .history-cmd pre {
       margin: 0;
@@ -31,5 +35,6 @@
     line-height: 16px;
     width: 14px;
     display: inline-block;
+    vertical-align: top;
   }
 }

@@ -6,6 +6,8 @@ $grey: #eceff1;
 $shadow: rgba($background, 0.3);
 $accent-text: white;
 
+$mobile: 600px;
+
 @mixin keyframes($animation-name) {
   @-webkit-keyframes #{$animation-name} {
     @content;

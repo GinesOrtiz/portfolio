@@ -49,7 +49,7 @@ const CurriculumApp = ({
         {
           value: 'Download PDF',
           icon: 'insert_drive_file',
-          action: () => console.log('test'),
+          action: () => window.open('cv.pdf', '_blank'),
         },
       ],
     })

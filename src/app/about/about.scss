@@ -3,9 +3,20 @@
 .about-app {
   padding: 24px;
   display: flex;
+
+  @media (max-width: $mobile) {
+    flex-direction: column;
+  }
+
   .about-picture {
     display: flex;
     align-items: center;
+
+    @media (max-width: $mobile) {
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
     img {
       width: 100px;
       border-radius: 100px;
@@ -14,6 +25,10 @@
   }
   .about-details {
     padding-left: 36px;
+
+    @media (max-width: $mobile) {
+      padding-left: 0;
+    }
 
     .name {
       font-size: 16px;
@@ -32,12 +47,21 @@
       display: flex;
       margin-bottom: 6px;
 
+      @media (max-width: $mobile) {
+        flex-direction: column;
+        margin-bottom: 16px;
+      }
+
       b {
         min-width: 70px;
       }
 
       span {
         padding-left: 4px;
+
+        @media (max-width: $mobile) {
+          padding-left: 0;
+        }
       }
     }
   }
