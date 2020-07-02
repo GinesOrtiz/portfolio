@@ -85,20 +85,6 @@ const Desktop = ({
     })
   }
 
-  const openFullscreen = () => {
-    const elem = document.querySelector('.desktop')
-
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen()
-    } else if (elem.mozRequestFullScreen) {
-      elem.mozRequestFullScreen()
-    } else if (elem.webkitRequestFullscreen) {
-      elem.webkitRequestFullscreen()
-    } else if (elem.msRequestFullscreen) {
-      elem.msRequestFullscreen()
-    }
-  }
-
   useEffect(() => {
     setTimeout(() => {
       createWindow(apps.about)
@@ -108,21 +94,12 @@ const Desktop = ({
   return (
     <div
       className={'desktop'}
-      onClick={() => {
-        closeContextMenu()
-        openFullscreen()
-      }}
+      onClick={closeContextMenu}
       onMouseMove={onMouseMove}
       onMouseUp={onMouseUp}
     >
       <MenuBar />
-      <div
-        onContextMenu={(ev) => {
-          openFullscreen()
-          onContextMenu(ev)
-        }}
-        className={'desktop-layer'}
-      >
+      <div onContextMenu={onContextMenu} className={'desktop-layer'}>
         <div
           className={'desktop-back'}
           onClick={() => {
