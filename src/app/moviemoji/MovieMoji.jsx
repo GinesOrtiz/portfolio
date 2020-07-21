@@ -66,7 +66,11 @@ const MovieMojie = () => {
         <div className={'game-submit'}>
           <span>
             Send more movies to{' '}
-            <a target={'_blank'} href={'https://twitter.com/ginesortiz'}>
+            <a
+              target={'_blank'}
+              rel="noopener noreferrer"
+              href={'https://twitter.com/ginesortiz'}
+            >
               @ginesortiz
             </a>
           </span>
