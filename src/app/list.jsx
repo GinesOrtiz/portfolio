@@ -2,6 +2,7 @@ import AboutApp from './about/About'
 import CurriculumApp from './curriculum/Curriculum'
 import ContactApp from './contact/Contact'
 import TerminalApp from './terminal/Terminal'
+import MovieMojie from './moviemoji/MovieMoji'
 
 export default {
   about: {
@@ -43,5 +44,15 @@ export default {
     icon: 'airplay',
     resize: true,
     app: TerminalApp,
+  },
+  moviemoji: {
+    id: 'moviemoji',
+    width: 520,
+    height: 300,
+    title: 'Guess the movie by emojis',
+    createdAt: 4,
+    icon: 'movie_filter',
+    resize: false,
+    app: MovieMojie,
   },
 }
