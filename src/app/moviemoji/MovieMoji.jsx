@@ -14,10 +14,10 @@ const MovieMojie = () => {
 
   const onChangeAnswer = (input) => {
     const formatAnswer = list[currentMovie].movie
-      .toLowerCase()
-      .replace(/[^a-zA-Z]/gi, '')
     const formatInput = input.toLowerCase().replace(/[^a-zA-Z]/gi, '')
-    const correctAnswer = formatAnswer === formatInput
+    const correctAnswer = formatAnswer.find(
+      (movie) => movie.toLowerCase().replace(/[^a-zA-Z]/gi, '') === formatInput
+    )
 
     setAnswer(input)
     setIsValid(correctAnswer)
