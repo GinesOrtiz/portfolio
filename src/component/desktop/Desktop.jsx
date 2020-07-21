@@ -88,9 +88,11 @@ const Desktop = ({
   useEffect(() => {
     setTimeout(() => {
       const params = new URLSearchParams(document.location.search.substring(1))
-      const app = params.get('app')
+      const appParam = params.get('app')
+      const app = apps[appParam] || apps.about
 
-      createWindow(apps[app] || apps.about)
+      createWindow(app)
+      activeWindow(app)
     }, 1000)
   }, [createWindow])
 
